@@ -1,0 +1,31 @@
+name: PROD
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  install-dependencies:
+    name: 'Install Node.js dependencies'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+  deploy-prod:
+    name: 'Build & Deploy @ PROD'
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Result
+        run: echo "uat pipeline"
